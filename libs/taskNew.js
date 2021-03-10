@@ -284,12 +284,14 @@ module.exports = {
         if (fileNames.length < 2){
             throw new Error(`Not enough images (${fileNames.length} files uploaded)`);
         }
+        
+        let megaPixels = 1;
 
         // Get pixel total
         for (var i = 0; i < fileNames.length; i++) {
             if (fileNames[i].endsWith(".jpg")) {
                 let {_, width, height} = await pixels(path.join(tmpPath, fileNames[i]));
-                let megaPixels = (width * height / 1000000);
+                megaPixels = (width * height / 1000000);
             }
         }
 
