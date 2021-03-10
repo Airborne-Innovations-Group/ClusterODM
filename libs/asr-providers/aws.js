@@ -42,8 +42,8 @@ module.exports = class AWSAsrProvider extends AbstractASRProvider{
             "ami": "ami-07b4f3c02c7f83d59",
             "spot": false,
             "imageSizeMapping": [
-                {"maxNetMP": 20, "slug": "t2.micro", "spotPrice": 0.1, "storage": 10},
-                {"maxNetMP": 200, "slug": "t2.medium", "spotPrice": 0.1, "storage": 100}
+                {"maxNetMP": 40, "slug": "t2.micro", "spotPrice": 0.1, "storage": 10},
+                {"maxNetMP": 400, "slug": "t2.medium", "spotPrice": 0.1, "storage": 100}
             ],
 
             "addSwap": 1,
