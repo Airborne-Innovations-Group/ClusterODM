@@ -30,6 +30,7 @@ const statusCodes = require('./statusCodes');
 const asrProvider = require('./asrProvider');
 const logger = require('./logger');
 const events = require('events');
+const pixels = require('image-pixels');
 
 const assureUniqueFilename = (dstPath, filename) => {
     return new Promise((resolve, _) => {
@@ -284,6 +285,14 @@ module.exports = {
             throw new Error(`Not enough images (${fileNames.length} files uploaded)`);
         }
 
+        // Get pixel total
+        for (var i = 0; i < fileNames.length; i++) {
+            if (fileNames[i].endsWith(".jpg")) {
+                let {_, width, height} = await pixels(path.join(tmpPath, fileNames[i]));
+                let megaPixels = (width * height / 1000000);
+            }
+        }
+
         // When --no-splitmerge is set, do not allow seed.zip
         if (!config.splitmerge){
             if (fileNames.indexOf("seed.zip") !== -1) throw new Error("Cannot use this node as a split-merge cluster.");
@@ -299,7 +308,7 @@ module.exports = {
         // Do we need to / can we create a new node via autoscaling?
         const autoscale = (!node || node.availableSlots() === 0) && 
                             asrProvider.isAllowedToCreateNewNodes() &&
-                            asrProvider.canHandle(fileNames.length);
+                            asrProvider.canHandle(fileNames.length, megaPixels);
 
         if (autoscale) node = nodes.referenceNode(); // Use the reference node for task options purposes
 

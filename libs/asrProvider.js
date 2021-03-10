@@ -64,9 +64,9 @@ module.exports = {
         return (asrProvider.getNodesPendingCreation() + autoSpawnedNodesCount) < asrProvider.getMachinesLimit();
     },
 
-    canHandle: function(imagesCount){
+    canHandle: function(imagesCount, megaPixels){
         if (!asrProvider) return false;
-        return asrProvider.canHandle(imagesCount);
+        return asrProvider.canHandle(imagesCount, megaPixels);
     },
 
     onCommit: async function(taskId, cleanupDelay = 0){

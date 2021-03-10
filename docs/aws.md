@@ -42,14 +42,14 @@ the on-demand instance cost - you'll always pay the current market price, not yo
 
     "spot": true,
     "imageSizeMapping": [
-        {"maxImages": 40, "slug": "t3a.small", "spotPrice": 0.02, "storage": 60},
-        {"maxImages": 80, "slug": "t3a.medium", "spotPrice": 0.04, "storage": 100},
-		{"maxImages": 250, "slug": "m5.large", "spotPrice": 0.1, "storage": 160},
-		{"maxImages": 500, "slug": "m5.xlarge", "spotPrice": 0.2, "storage": 320},
-		{"maxImages": 1500, "slug": "m5.2xlarge", "spotPrice": 0.4, "storage": 640},
-		{"maxImages": 2500, "slug": "r5.2xlarge", "spotPrice": 0.6, "storage": 1200},
-		{"maxImages": 3500, "slug": "r5.4xlarge", "spotPrice": 1.1, "storage": 2000},
-		{"maxImages": 5000, "slug": "r5.4xlarge", "spotPrice": 1.1, "storage": 2500}
+        {"maxNetMP": 160, "slug": "t3a.small", "spotPrice": 0.02, "storage": 60},
+        {"maxNetMP": 320, "slug": "t3a.medium", "spotPrice": 0.04, "storage": 100},
+		{"maxNetMP": 1000, "slug": "m5.large", "spotPrice": 0.1, "storage": 160},
+		{"maxNetMP": 2000, "slug": "m5.xlarge", "spotPrice": 0.2, "storage": 320},
+		{"maxNetMP": 6000, "slug": "m5.2xlarge", "spotPrice": 0.4, "storage": 640},
+		{"maxNetMP": 10000, "slug": "r5.2xlarge", "spotPrice": 0.6, "storage": 1200},
+		{"maxNetMP": 14000, "slug": "r5.4xlarge", "spotPrice": 1.1, "storage": 2000},
+		{"maxNetMP": 20000, "slug": "r5.4xlarge", "spotPrice": 1.1, "storage": 2500}
     ],
 
     "addSwap": 1,
@@ -84,7 +84,8 @@ instance able to process the requested number of images is always selected.
 
 | Field     | Description                                                                                       |
 |-----------|---------------------------------------------------------------------------------------------------|
-| maxImages | The maximum number of images this instance size can handle.                                       |
+| maxImages | The maximum number of images this instance size can handle. (deprecated)                          |
+| maxNetMP  | The maximum number of total megapixels this instance size can handle.                             |
 | slug      | EC2 instance type to request (for example, `t3.medium`).                                          |
 | storage   | Amount of storage to allocate to this instance's EBS root volume, in GB.                          |
 | spotPrice | The maximum hourly price you're willing to bid for this instance (if spot instances are enabled). |

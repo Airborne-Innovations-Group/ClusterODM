@@ -42,8 +42,8 @@ module.exports = class AWSAsrProvider extends AbstractASRProvider{
             "ami": "ami-07b4f3c02c7f83d59",
             "spot": false,
             "imageSizeMapping": [
-                {"maxImages": 5, "slug": "t2.micro", "spotPrice": 0.1, "storage": 10},
-                {"maxImages": 50, "slug": "t2.medium", "spotPrice": 0.1, "storage": 100}
+                {"maxNetMP": 20, "slug": "t2.micro", "spotPrice": 0.1, "storage": 10},
+                {"maxNetMP": 200, "slug": "t2.medium", "spotPrice": 0.1, "storage": 100}
             ],
 
             "addSwap": 1,
@@ -93,8 +93,8 @@ module.exports = class AWSAsrProvider extends AbstractASRProvider{
         return `https://${this.getConfig("s3.bucket")}.${this.getConfig("s3.endpoint")}`;
     }
 
-    canHandle(imagesCount){
-        return this.getImagePropertiesFor(imagesCount) !== null;
+    canHandle(imagesCount, megaPixels){
+        return this.getImagePropertiesFor(imagesCount, megaPixels) !== null;
     }
 
     async setupMachine(req, token, dm, nodeToken){
@@ -125,13 +125,15 @@ module.exports = class AWSAsrProvider extends AbstractASRProvider{
                      `--token ${nodeToken}`].join(" "));
     }
 
-    getImagePropertiesFor(imagesCount){
+    getImagePropertiesFor(imagesCount, megaPixels){
         const im = this.getConfig("imageSizeMapping");
 
         let props = null;
+        let netMP = imagesCount * megaPixels;
+
         for (var k in im){
             const mapping = im[k];
-            if (mapping['maxImages'] >= imagesCount){
+            if (mapping['maxNetMP'] >= netMP || mapping['maxImages'] >= imagesCount){
                 props = mapping;
                 break;
             }
