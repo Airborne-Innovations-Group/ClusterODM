@@ -563,7 +563,7 @@ module.exports = {
                 const asr = asrProvider.get();
                 try{
                     dmHostname = asr.generateHostname(imagesCount);
-                    node = await asr.createNode(req, imagesCount, token, dmHostname, status);
+                    node = await asr.createNode(req, imagesCount, megaPixels, token, dmHostname, status);
                     if (!status.aborted) nodes.add(node);
                     else return;
                 }catch(e){

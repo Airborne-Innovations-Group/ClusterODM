@@ -50,7 +50,7 @@ module.exports = class AbstractASRProvider{
         throw new Error("Not implemented");
     }
 
-    canHandle(imagesCount){
+    canHandle(imagesCount, megaPixels){
         throw new Error("Not implemented");
     }
 
@@ -110,8 +110,8 @@ module.exports = class AbstractASRProvider{
     // @param hostname {String} docker-machine hostname
     // @param status {Object} status information about the task being created
     // @return {Node} a new Node instance
-    async createNode(req, imagesCount, token, hostname, status){
-        if (!this.canHandle(imagesCount)) throw new Error(`Cannot handle ${imagesCount} images.`);
+    async createNode(req, imagesCount, megaPixels, token, hostname, status){
+        if (!this.canHandle(imagesCount, megaPixels)) throw new Error(`Cannot handle ${imagesCount} images at ${megaPixels} mega pixels.`);
 
         const dm = new DockerMachine(hostname);
         const args = ["--driver", this.getDriverName()]
