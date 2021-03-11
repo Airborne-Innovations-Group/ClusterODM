@@ -106,6 +106,7 @@ module.exports = class AbstractASRProvider{
     // Spawn new nodes
     // @param req {http.ClientRequest} request object from HttpProxy
     // @param imagesCount {Number} number of images this node should be able to process
+    // @param megaPixels {Number} mega pixels of images this node should be able to process
     // @param token {String} user token
     // @param hostname {String} docker-machine hostname
     // @param status {Object} status information about the task being created
