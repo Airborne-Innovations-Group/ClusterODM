@@ -151,7 +151,7 @@ module.exports = class AWSAsrProvider extends AbstractASRProvider{
     }
 
     async getCreateArgs(imagesCount){
-        const image_props = this.getImagePropertiesFor(imagesCount);
+        const image_props = this.getImagePropertiesFor(imagesCount, megaPixels);
         const args = [
             "--amazonec2-access-key", this.getConfig("accessKey"),
             "--amazonec2-secret-key", this.getConfig("secretKey"),
