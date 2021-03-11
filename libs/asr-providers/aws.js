@@ -150,7 +150,7 @@ module.exports = class AWSAsrProvider extends AbstractASRProvider{
         return this.getConfig("maxUploadTime");
     }
 
-    async getCreateArgs(imagesCount){
+    async getCreateArgs(imagesCount, megaPixels){
         const image_props = this.getImagePropertiesFor(imagesCount, megaPixels);
         const args = [
             "--amazonec2-access-key", this.getConfig("accessKey"),

@@ -46,7 +46,7 @@ module.exports = class AbstractASRProvider{
         throw new Error("Not implemented");
     }
 
-    async getCreateArgs(imagesCount){
+    async getCreateArgs(imagesCount, megaPixels){
         throw new Error("Not implemented");
     }
 
@@ -98,8 +98,8 @@ module.exports = class AbstractASRProvider{
     }
 
     // Helper function for debugging
-    async debugCreateDockerMachineCmd(imagesCount){
-        const args = await this.getCreateArgs(imagesCount);
+    async debugCreateDockerMachineCmd(imagesCount, megaPixels){
+        const args = await this.getCreateArgs(imagesCount, megaPixels);
         return `docker-machine create --driver ${this.getDriverName()} ${args.join(" ")} debug-machine`;
     }
 
@@ -116,7 +116,7 @@ module.exports = class AbstractASRProvider{
 
         const dm = new DockerMachine(hostname);
         const args = ["--driver", this.getDriverName()]
-                        .concat(await this.getCreateArgs(imagesCount));
+                        .concat(await this.getCreateArgs(imagesCount, megaPixels));
         const nodeToken = short.generate();
 
         try{
